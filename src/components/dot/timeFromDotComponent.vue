@@ -6,7 +6,7 @@
             </span>
         </div>
         <select v-model="timeFrom" class="custom-select">
-            <option v-for="time in allTimes" :value="time.value">
+            <option v-for="time in availableTimes" :value="time.value">
                 {{ time.label }}
             </option>
         </select>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import {mapMutations, mapState} from 'vuex'
+    import {mapMutations, mapState, mapGetters} from 'vuex'
     import Dot from "../../models/Dot";
 
     export default {
@@ -27,6 +27,25 @@
             ...mapState('base', [
                 'allTimes',
             ]),
+
+            ...mapGetters('order', [
+                'getDotIndex',
+                'firstDot',
+            ]),
+
+            availableTimes () {
+                let times = this.allTimes.filter(time => time.value < this.dot.timeTo);
+
+                if (this.getDotIndex(this.dot) === 0) {
+                    return times;
+                }
+
+                if (this.dot.date !== this.firstDot.date) {
+                    return  times;
+                }
+
+                return times.filter(time => time.value >= this.firstDot.timeFrom)
+            },
 
             timeFrom: {
                 get() {
@@ -42,6 +61,20 @@
             ...mapMutations('order', [
                 'updateDot'
             ]),
+        },
+
+        mounted() {
+            this.$store.subscribe(mutation => {
+                if (this.getDotIndex(this.dot)) {
+                    if (mutation.type === 'order/updateDot') {
+                        if (this.getDotIndex(mutation.payload.dot) === 0 && this.dot.date === this.firstDot.date) {
+                            if (this.timeFrom < this.firstDot.timeFrom) {
+                                this.updateDot({dot: this.dot, key: 'timeFrom', value: this.firstDot.timeFrom})
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 </script>

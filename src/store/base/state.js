@@ -4,6 +4,9 @@ export default {
     allMetro: {},
     allCities: [],
 
+    templates: [],
+    couriers: [],
+
     maxOrderDots: 10,
     maxOrderDotItems: 10,
 

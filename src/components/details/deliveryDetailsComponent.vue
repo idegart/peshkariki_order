@@ -1,9 +1,12 @@
 <template>
-    <div class="form-group">
-        <label for="storeItemsName" class="font-weight-bold form__prepend__req form__what-deliver">
+    <div class="form-group" data-validation>
+        <label class="font-weight-bold form__prepend__req form__what-deliver">
             Что везем (коротко):</label>
-
-        <input v-model="comment" type="text" class="form-control" placeholder="Например, документы">
+        <input v-model="comment"
+               type="text"
+               class="form-control"
+               :class="$v.comment.$dirty && $v.comment.$invalid ? 'is-invalid' : ''"
+               placeholder="Например, документы">
 
         <div class="d-flex justify-content-between mt-0">
             <button @click="setComment('Документы')" class="btn btn-link btn-sm px-0 d-block text-danger">Документы</button>
@@ -17,9 +20,14 @@
 
 <script>
     import {mapMutations, mapState} from "vuex";
+    import { required, } from 'vuelidate/lib/validators'
 
     export default {
         name: "deliveryDetailsComponent",
+
+        validations: {
+            comment: {required,},
+        },
 
         computed: {
             ...mapState('order', [
@@ -39,6 +47,11 @@
 
             setComment (value) {
                 this.comment = value
+            },
+
+            isInvalidForm() {
+                this.$v.$touch();
+                return this.$v.$invalid;
             },
         },
     }

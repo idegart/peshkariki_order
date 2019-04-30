@@ -8,8 +8,20 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div v-if="!templates.length" class="modal-body">
                     У Вас ещё нет сохраненных шаблонов. Вы можете создать шаблон на основе выполненной доставки.
+                </div>
+
+                <div v-else class="modal-body">
+
+                    <ul style="list-style: none">
+                        <li v-for="template in templates">
+                            <a @click="selectTemplate(template.tid, template.oid, template.type)" href="#">
+                                {{ template.alias }}
+                            </a>
+                        </li>
+                    </ul>
+
                 </div>
 
                 <!-- Modal footer -->
@@ -23,8 +35,28 @@
 </template>
 
 <script>
+    import { mapState, mapActions } from 'vuex'
+
     export default {
-        name: "templateModalComponent"
+        name: "templateModalComponent",
+
+        computed: {
+            ...mapState('base', [
+                'templates'
+            ]),
+        },
+
+        methods: {
+            ...mapActions('base', [
+                'loadTemplate'
+            ]),
+
+            selectTemplate (templateId, orderId, templateType) {
+                $('#template-modal').modal('hide')
+
+                this.loadTemplate({orderId, templateType});
+            }
+        }
     }
 </script>
 

@@ -12,17 +12,18 @@ function tommorowDate() {
 export default class Dot {
     constructor (props) {
         this.city       = get(props, 'city', 1);
-        this.address    = get(props, 'address', '');
-        this.apartment  = get(props, 'apartment', '');
+        this.address    = get(props, 'address');
+        this.building   = get(props, 'building');
+        this.apartment  = get(props, 'apartment');
         this.metro      = get(props, 'metro', '');
-        this.contact    = get(props, 'contact', '');
-        this.phone      = get(props, 'phone', '');
+        this.contact    = get(props, 'contact');
+        this.phone      = get(props, 'phone');
         this.date       = get(props, 'date', tommorowDate());
         this.timeFrom   = get(props, 'timeFrom', 8);
         this.timeTo     = get(props, 'timeTo', 20);
 
 
-        this.comment    = get(props, 'comment', '');
+        this.comment    = get(props, 'comment');
 
         this.items      = get(props, 'items', []);
     }

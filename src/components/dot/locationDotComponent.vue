@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group input-group-sm mb-3 col-12">
+    <div class="input-group input-group-sm mb-3 col-12" data-validation>
         <div class="input-group-prepend">
             <span class="input-group-text form__prepend">
                 <div class="fa fa-home inline-icon form__prepend__icon form__prepend__req"></div>
@@ -12,6 +12,7 @@
                        @focus="focusAddress"
                        @blur="blurAddress"
                        class="form-control"
+                       :class="$v.address.$dirty && $v.address.$invalid ? 'is-invalid' : ''"
                        placeholder="Начните вводить адрес">
                 <div class="dropdown-menu"
                      :class="suggestionsVisible ? 'show' : ''"
@@ -36,6 +37,7 @@
     import axios from 'axios'
     import Dot from "../../models/Dot";
     import { debounce } from 'lodash'
+    import { required, } from 'vuelidate/lib/validators'
 
     export default {
         name: "locationDotComponent",
@@ -49,6 +51,10 @@
             isSelected: false,
             houseSet: false,
         }),
+
+        validations: {
+            address: {required,},
+        },
 
         computed: {
             ...mapState('base', [
@@ -145,6 +151,11 @@
                         }
                     })
             },
+
+            isInvalidForm() {
+                this.$v.$touch();
+                return this.$v.$invalid;
+            }
         }
     }
 </script>

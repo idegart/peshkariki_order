@@ -68,7 +68,7 @@
     import CheckprintModalComponent from "./components/modals/checkprintModalComponent";
 
     export default {
-        name: 'app',
+        name: 'order',
         components: {
             CheckprintModalComponent,
             FavoritesModalComponent,

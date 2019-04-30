@@ -8,10 +8,24 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div v-if="!couriers.length" class="modal-body">
                     У Вас пока нет избранных курьеров. Вы можете добавить курьера в избранные после выполнения им
                     Вашей
                     доставки!
+                </div>
+
+                <!-- Modal body -->
+                <div v-else class="modal-body">
+                    <ul style="list-style: none;margin: 0;padding: 0">
+                        <li v-for="courier in couriers">
+                            <label>
+                                <input :checked="courier.selected"
+                                       @input="toggleCourier(courier)"
+                                       type="checkbox">
+                                {{ courier.fio }}
+                            </label>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- Modal footer -->
@@ -25,8 +39,21 @@
 </template>
 
 <script>
+    import { mapState, mapMutations } from 'vuex'
     export default {
-        name: "favoritesModelComponent"
+        name: "favoritesModelComponent",
+
+        computed: {
+            ...mapState('base', [
+                'couriers',
+            ]),
+        },
+
+        methods: {
+            ...mapMutations('base', [
+                'toggleCourier'
+            ]),
+        },
     }
 </script>
 

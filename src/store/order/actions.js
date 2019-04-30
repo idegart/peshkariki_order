@@ -189,4 +189,19 @@ export default {
                 state.order.promoValid = toInteger(data) === 0
             })
     },
+
+    tryCreateOrder: ({state, rootState}) => {
+
+        state.orderValid = true
+
+        const els = [...document.querySelectorAll('[data-validation]')]
+
+        els.forEach(el => {
+            if (el.__vue__.hasOwnProperty('isInvalidForm') && el.__vue__.isInvalidForm()) {
+                state.orderValid = false;
+            }
+        })
+
+        console.log(state.orderValid)
+    }
 }

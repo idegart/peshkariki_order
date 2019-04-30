@@ -45,7 +45,7 @@
             </div>
 
 
-            <checkprint-modal-component />
+<!--            <checkprint-modal-component />-->
 
             <template-modal-component />
 
@@ -57,6 +57,7 @@
 <script>
 
     import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+    import { debounce } from 'lodash'
 
     import AutoComponent from "./components/autoComponent";
     import DotComponent from "./components/dotComponent";
@@ -74,18 +75,19 @@
             TemplateModalComponent, BottomComponent, DetailsComponent, DotComponent, AutoComponent
         },
 
-        data: () => ({
-            maxDots: window.MAX_DOTS
-        }),
-
         methods: {
             ...mapActions('base', [
                 'loadInitialInfo',
+                'dispatchUpdater',
             ]),
 
             ...mapMutations('order', [
                 'addDot'
             ]),
+
+            manageUpdater: debounce(function () {
+                this.dispatchUpdater()
+            }, 400)
         },
 
         computed: {
@@ -104,6 +106,10 @@
 
         mounted() {
             this.loadInitialInfo()
+
+            this.$store.subscribe(mutation => {
+                this.manageUpdater()
+            })
         }
     }
 </script>

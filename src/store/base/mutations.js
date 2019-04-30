@@ -1,4 +1,6 @@
 import {getMonthString} from "../../plugins/toolkit";
+import Service from "../../models/Service";
+import { toInteger } from 'lodash'
 
 export default {
     setInitialDates: state => {
@@ -35,5 +37,13 @@ export default {
                 value: time,
             }
         })
-    }
+    },
+
+    setMetroList: (state, metroList) => {
+        state.allMetro = metroList
+    },
+
+    setCitiesList: (state, citiesList) => {
+        state.allCities = citiesList
+    },
 }

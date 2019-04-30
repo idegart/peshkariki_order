@@ -1,14 +1,14 @@
 <template>
     <div class="form-group pt-2">
         <label class="font-weight-bold mt-2">
-            Принять выручку за груз получателя?
+            Выберите вариант оплаты доставки:
         </label>
         <div class="row pl-3">
-            <div v-for="method in itemsPaymentMethods"
+            <div v-for="method in deliveryPaymentMethods"
                  class="form-check-inline col-12 col-md-3">
 
                 <label class="form-check-label">
-                    <input :checked="order.itemsPaymentMethod === method.value"
+                    <input :checked="order.deliveryPaymentMethod === method.value"
                            @input="updateMethod(method.value)"
                            type="radio"
                            class="form-check-input">
@@ -24,11 +24,11 @@
     import { mapState, mapMutations } from 'vuex'
 
     export default {
-        name: "deliveryPaymentDetailsComponent",
+        name: "paymentDetailsComponent",
 
         computed: {
             ...mapState('base', [
-                'itemsPaymentMethods',
+                'deliveryPaymentMethods',
             ]),
             ...mapState('order', [
                 'order',
@@ -42,7 +42,7 @@
 
             updateMethod (value) {
                 this.updateOrder({
-                    key: 'itemsPaymentMethod',
+                    key: 'deliveryPaymentMethod',
                     value
                 })
             },

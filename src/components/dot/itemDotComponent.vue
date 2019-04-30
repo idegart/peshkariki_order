@@ -14,11 +14,11 @@
         </div>
 
 
-        <count-item-dot-component />
+        <count-item-dot-component :dot="dot" :item="item" />
 
-        <weight-item-dot-component />
+        <weight-item-dot-component :dot="dot" :item="item" />
 
-        <price-item-dot-component />
+        <price-item-dot-component :dot="dot" :item="item" />
 
     </div>
 </template>

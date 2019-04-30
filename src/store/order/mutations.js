@@ -18,6 +18,14 @@ export default {
         })
     },
 
+    setServices: (state, services) => {
+        state.services = services
+    },
+
+    updateOrder: (state, {key, value}) => {
+        set(state.order, key, value)
+    },
+
     updateDot: (state, {dot, key, value}) => {
         set(dot, key, value)
     },
@@ -47,4 +55,8 @@ export default {
     updateDotItem: (state, {item, key, value}) => {
         set(item, key, value)
     },
+
+    toggleServiceChecked: (state, service) => {
+        service.isChecked = !service.isChecked
+    }
 }

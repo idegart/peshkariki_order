@@ -14,7 +14,7 @@ export default class Dot {
         this.city       = get(props, 'city', 1);
         this.address    = get(props, 'address', '');
         this.apartment  = get(props, 'apartment', '');
-        this.metro      = get(props, 'metro', null);
+        this.metro      = get(props, 'metro', '');
         this.contact    = get(props, 'contact', '');
         this.phone      = get(props, 'phone', '');
         this.date       = get(props, 'date', tommorowDate());

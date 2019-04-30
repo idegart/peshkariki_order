@@ -1,3 +1,4 @@
 export default {
-    order: null
+    order: null,
+    services: [],
 }

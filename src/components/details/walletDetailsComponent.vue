@@ -1,22 +1,24 @@
 <template>
     <div class="form-group pt-2">
-        <label class="font-weight-bold mt-2">
-            Принять выручку за груз получателя?
+        <label class="font-weight-bold">
+            Возврат выручки:
         </label>
-        <div class="row pl-3">
-            <div v-for="method in itemsPaymentMethods"
-                 class="form-check-inline col-12 col-md-3">
 
+        <input v-model="walletValue" type="text" class="form-control" placeholder="Номер карты, ФИО владельца">
+
+        <div v-for="method in walletMethods"
+             class="row pl-3 mt-2 d-flex justify-content-between">
+            <div class="form-check col-md-4 col-12 form__payment-return__item">
                 <label class="form-check-label">
-                    <input :checked="order.itemsPaymentMethod === method.value"
+                    <input :checked="order.walletMethod === method.value"
                            @input="updateMethod(method.value)"
                            type="radio"
                            class="form-check-input">
                     {{ method.text }}
                 </label>
-
             </div>
         </div>
+
     </div>
 </template>
 
@@ -24,15 +26,20 @@
     import { mapState, mapMutations } from 'vuex'
 
     export default {
-        name: "deliveryPaymentDetailsComponent",
+        name: "walletDetailsComponent",
 
         computed: {
             ...mapState('base', [
-                'itemsPaymentMethods',
+                'walletMethods',
             ]),
             ...mapState('order', [
                 'order',
             ]),
+
+            walletValue: {
+                get () { return this.order.walletValue },
+                set (value) { this.updateOrder({ key: 'walletValue', value }) }
+            }
         },
 
         methods: {
@@ -42,7 +49,7 @@
 
             updateMethod (value) {
                 this.updateOrder({
-                    key: 'itemsPaymentMethod',
+                    key: 'walletMethod',
                     value
                 })
             },

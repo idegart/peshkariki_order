@@ -5,7 +5,9 @@
 
         <delivery-payment-details-component />
 
-        <return-details-component />
+        <wallet-details-component />
+
+        <payment-details-component />
 
         <div class="form-group pt-2">
 
@@ -22,17 +24,24 @@
 <script>
     import DeliveryDetailsComponent from "./details/deliveryDetailsComponent";
     import DeliveryPaymentDetailsComponent from "./details/deliveryPaymentDetailsComponent";
-    import ReturnDetailsComponent from "./details/returnDetailsComponent";
     import PromoDetailsComponent from "./details/promoDetailsComponent";
     import ExtraDetailsComponent from "./details/extraDetailsComponent";
     import ServicesDetailsComponent from "./details/servicesDetailsComponent";
+    import WalletDetailsComponent from './details/walletDetailsComponent';
+    import PaymentDetailsComponent from "./details/paymentDetailsComponent";
+
     export default {
         name: "detailsComponent",
         components: {
+            PaymentDetailsComponent,
+            WalletDetailsComponent,
             ServicesDetailsComponent,
             ExtraDetailsComponent,
             PromoDetailsComponent,
-            ReturnDetailsComponent, DeliveryPaymentDetailsComponent, DeliveryDetailsComponent}
+            DeliveryDetailsComponent,
+            DeliveryPaymentDetailsComponent,
+            // WalletDetailsComponent
+        }
     }
 </script>
 

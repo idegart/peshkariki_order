@@ -1,17 +1,42 @@
 <template>
     <div class="input-group input-group-sm mb-3 col-lg-4 col-12">
-        <input type="number" class="form-control" placeholder="1">
+        <input v-model="count" type="number" class="form-control" placeholder="Введите кол-во">
         <div class="input-group-append">
-                            <span class="input-group-text form__prepend form__prepend--unstretchable">
-                                <b class=" form__prepend__icon">шт</b>
-                            </span>
+            <span class="input-group-text form__prepend form__prepend--unstretchable">
+                <b class=" form__prepend__icon">шт</b>
+            </span>
         </div>
     </div>
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+    import Dot from "../../../models/Dot";
+    import Item from "../../../models/Item";
     export default {
-        name: "countItemDotComponent"
+        name: "countItemDotComponent",
+        props: {
+            dot: Dot,
+            item: Item,
+        },
+
+        methods: {
+            ...mapMutations('order', [
+                'updateDotItem'
+            ]),
+        },
+
+        computed: {
+            count: {
+                get() {
+                    return this.item.count
+                },
+                set(value) {
+                    this.updateDotItem({item: this.item, key: 'count', value})
+                }
+            }
+        },
+
     }
 </script>
 

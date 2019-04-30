@@ -17,4 +17,4 @@ import OrderComponent from './OrderComponent'
 new Vue({
   store,
   render: h => h(OrderComponent)
-}).$mount('#app')
+}).$mount('#order')
